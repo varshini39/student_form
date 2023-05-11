@@ -51,10 +51,10 @@ class DatabaseHelper {
   // Inserts a row in the database where each key in the Map is a column name
   // and the value is the column value. The return value is the id of the
   // inserted row.
-  Future<int> insert(Student car) async {
+  Future<int> insert(Student student) async {
     Database db = await instance.database;
-    return await db.insert(
-        table, {'name': car.name, 'gender': car.gender, 'rank': car.rank});
+    return await db.insert(table,
+        {'name': student.name, 'gender': student.gender, 'rank': student.rank});
   }
 
   // All of the rows are returned as a list of maps, where each map is
@@ -80,11 +80,11 @@ class DatabaseHelper {
 
   // We are assuming here that the id column in the map is set. The other
   // column values will be used to update the row.
-  Future<int> update(Student car) async {
+  Future<int> update(Student student) async {
     Database db = await instance.database;
-    int id = car.toMap()['id'];
-    return await db
-        .update(table, car.toMap(), where: '$columnId = ?', whereArgs: [id]);
+    int id = student.toMap()['id'];
+    return await db.update(table, student.toMap(),
+        where: '$columnId = ?', whereArgs: [id]);
   }
 
   // Deletes the row specified by the id. The number of affected rows is
